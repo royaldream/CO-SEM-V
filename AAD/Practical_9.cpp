@@ -5,7 +5,7 @@ class Stack
 {
     public :
     int a[SIZE][SIZE];
-    int top;
+    int top,r,f;
     int visited[SIZE];
     int stack[SIZE];
     Stack()
@@ -17,6 +17,7 @@ class Stack
     Stack(int n)
     {
         top=-1;
+        r=f=-1;
         for(int i=0;i<n;i++)
             for(int j=0;j<n;j++)
                 a[i][j]=0;
@@ -51,9 +52,20 @@ class Stack
         top--;
         return temp;
     }
+    void pushqueue(int num)
+    {
+        r++;
+        stack[r]=num;
+    }
+    int popqueue()
+    {
+        int temp;
+        f++;
+        temp=stack[f];
+        return temp;
+    }
     void DFS(int source,int n)
     {
-        //cout<<source;//<<"TOP "<<top<<endl;
         if(visited[source]==0)
         {
             push(source);
@@ -69,24 +81,42 @@ class Stack
                 }
         }
     }
+    void BFS(int source,int n)
+    {
+            if(r==(n-1)||f==(n-2))
+            return;
+        int x;
+        visited[source]=1;
+        for(int i=0;i<n;i++)
+        {
+            if(a[source][i]==1 && visited[i]==0)
+                {
+                    pushqueue(i);
+                    visited[i]=1;
+                }
+        }
+        x=popqueue();
+        cout<<x<<endl;
+        BFS(x,n);
+    }
 };
 
 int main()
 {
     Stack graph;
     int n,ch=1;
-    //cout<<"Enter Number Of Total Nodes :- ";
-    //cin>>n;
-    n=4;
+    cout<<"Enter Number Of Total Nodes :- ";
+    cin>>n;
+    //n=4;
     graph=Stack(n);
     int sn,dn;
-    graph.addEdge(0, 1);
+    /*graph.addEdge(0, 1);
     graph.addEdge(0, 2);
     graph.addEdge(1, 2);
     graph.addEdge(2, 0);
     graph.addEdge(2, 3);
-    graph.addEdge(3, 3);
-   /* while(1)
+    graph.addEdge(3, 3);*/
+    while(1)
     {
         if(ch==1)
             {   cout<<"Enter Edges Node :- ";
@@ -98,10 +128,50 @@ int main()
             }
         else if(ch==0)
             break;
-    }*/
+    }
     graph.showGraph(n);
-    graph.DFS(0,n);
-    while(graph.top!=-1)
-                cout<<graph.pop();
+    int ch,source;
+    cout<<"Enter Source Node :- ";
+    cin>>source;
+    cout<<"Enter Your Choice \n1 : DFS\n2 : BFS 0 : Exit\n";
+    cin>>ch;
+    //graph.DFS(0,n);
+    while(ch!=0)
+    {
+        if(ch==1)
+            graph.DFS(source,n);
+        else
+        if(ch==2)
+            {
+                cout<<source<<"\n";
+                graph.BFS(source,n);
+            }
+        cout<<"Enter Your Choice \n1 : DFS\n2 : BFS 0 : Exit\n";
+        cin>>ch;
+    }
     return 0;
 }
+
+/*
+
+visited[v]=1;
+k=1;
+while(k<n)
+{
+for(j=1;j<=n;j++)
+    if(cost[v][j]!=0 && visited[j]!=1 && visit[j]!=1)
+    {
+    visit[j]=1;
+    qu[rare++]=j;
+    }
+
+v=qu[front++];
+cout<<v << " ";
+k++;
+visit[v]=0; visited[v]=1;
+}
+
+
+
+
+*/
