@@ -3,7 +3,6 @@ import java.util.*;
 
 interface Shape
 {
-
      void getdata();
      void putdata();
      void area();
