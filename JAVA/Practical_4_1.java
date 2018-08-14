@@ -13,9 +13,12 @@ class Player
     void getData()
     {
         Scanner s=new Scanner(System.in);
+        System.out.println("Name :- ");
         name=s.nextLine();
+        System.out.println("Age :- ");
         age=s.nextInt();
         s.nextLine();
+        System.out.println("Player Type :- ");
         typePlayer=s.nextLine();
         if(typePlayer.equals("cricket")||typePlayer.equals("Cricket"))
             typePlayer="cricket";
