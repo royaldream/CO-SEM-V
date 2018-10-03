@@ -1,0 +1,5 @@
+main	void	length = 0
+a	int	length = 4
+b	float	length = 4
+c	char	length = 1
+_g	int	length = 4
