@@ -7,6 +7,7 @@ package atm;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -149,10 +150,24 @@ public class Menu implements ActionListener {
         }
                 break;
             case "FundTransfer":
+        {
+            try {
                 FundTransfer ft = new FundTransfer(card);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 break;
             case "MiniStat":
+        {
+            try {
                 MiniStat ms = new MiniStat(card);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 break;
             default:
                 break;

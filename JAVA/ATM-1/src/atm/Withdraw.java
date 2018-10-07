@@ -113,6 +113,7 @@ public class Withdraw implements ActionListener {
                 ResultSet rs = statement.executeQuery(sql);
                 if (rs.next()) {
                     table_bal = rs.getInt("balance");
+                    
                 }
                 if (table_bal > bal_pre) {
                     balance = String.valueOf(table_bal - bal_pre);

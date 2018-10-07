@@ -36,7 +36,7 @@ public class Deposit implements ActionListener {
     private JTextField amountval;
     private JButton Deposit;
     private Connection connection;
-    private int card;
+    private final int card;
 
     public Deposit(int cardno) throws SQLException {
         this.card = cardno;
@@ -105,20 +105,20 @@ public class Deposit implements ActionListener {
                 return;
             }
             String balance = amountval.getText();
-            int bal_pre=Integer.parseInt(balance);
+            int bal_pre = Integer.parseInt(balance);
             try {//hu karu ruk
                 Double.parseDouble(balance);
                 Statement statement = connection.createStatement();
                 String sql = "SELECT balance FROM REGISTER WHERE card_no=" + card;
                 ResultSet rs = statement.executeQuery(sql);
                 if (rs.next()) {
-                    int balance_previous=rs.getInt("balance");
-                    balance=String.valueOf(balance_previous+Integer.parseInt(balance));
-                    System.out.println(balance+"");
+                    int balance_previous = rs.getInt("balance");
+                    balance = String.valueOf(balance_previous + Integer.parseInt(balance));
+                    System.out.println(balance + "");
                 }//ak min ee nai chale balance vali fieald int che atle database ma int nakhavu padshe
-                String sql1="UPDATE REGISTER SET balance="+Integer.parseInt(balance)+" WHERE card_no="+card;
+                String sql1 = "UPDATE REGISTER SET balance=" + Integer.parseInt(balance) + " WHERE card_no=" + card;
                 statement.executeUpdate(sql1);
-                String sql2="INSERT INTO `transaction`(`sCardno`, `change_balance`, `acc_balance`,`type`) VALUES ("+card+","+bal_pre+","+Integer.parseInt(balance)+",\"Deposit\")";
+                String sql2 = "INSERT INTO `transaction`(`sCardno`, `change_balance`, `acc_balance`,`type`) VALUES (" + card + "," + bal_pre + "," + Integer.parseInt(balance) + ",\"Deposit\")";
                 statement.executeUpdate(sql2);
                 JOptionPane.showMessageDialog(mainFrame, "Amount Deposited Successfully");
                 mainFrame.setVisible(false);
